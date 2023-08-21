@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'todoapp.apps.TodoappConfig',
+    'accounts.apps.AccountsConfig'
 ]
 
 MIDDLEWARE = [
@@ -118,6 +120,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+# モデルの指定
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -165,3 +170,11 @@ LOGGING = {
     },
 }
 
+# メール関係の設定
+
+DEFAULT_FROM_EMAIL="hirasawaworksub@gmail.com"
+EMAIL_HOST="smtp.gmail.com"
+EMAIL_PORT=587
+EMAIL_HOST_USER="hirasawaworksub@gmail.com"
+EMAIL_HOST_PASSWORD="ihxjobfeelayodyb"
+EMAIL_USE_TLS= True

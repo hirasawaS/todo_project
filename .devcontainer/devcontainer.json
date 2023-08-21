@@ -1,0 +1,31 @@
+{
+	"name": "devcontainer",
+	"dockerComposeFile": [
+		"../compose.yaml",
+		"docker-compose.yml"
+	],
+	"service": "web",
+	"workspaceFolder": "/code",
+	"customizations": {
+		"vscode": {
+			// 起動時にbashを選択
+			"settings": {
+				"terminal.integrated.shell.linux": "/bin/bash"
+			},
+			// 拡張機能はここに追加してください
+			"extensions": [
+				"formulahendry.auto-close-tag",
+				"formulahendry.auto-rename-tag",
+				"bigonesystems.django",
+				"bibhasdn.django-html",
+				"MS-CEINTL.vscode-language-pack-ja",
+				"KevinRose.vsc-python-indent",
+				"ms-python.python",
+				"donjayamanne.git-extension-pack",
+				"HookyQR.beautify",
+				"oderwat.indent-rainbow"
+			]
+		}
+	},
+	"postCreateCommand": "apt-get update -qq && apt-get install git && git config --global --add safe.directory /code && git config --global user.email backend@temp.com && git config --global user.name developper"
+}

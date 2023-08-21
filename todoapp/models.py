@@ -23,6 +23,8 @@ class Category(models.Model):
         max_length=20
         
     )
+    def __str__(self):
+        return self.category
 
 class TopTask(models.Model):
     title = models.CharField(
@@ -39,7 +41,8 @@ class TopTask(models.Model):
         verbose_name="カテゴリ" , 
         on_delete=models.PROTECT
     )
-
+    def __str__(self):
+        return self.title
 
 class MiddleTask(models.Model):
     title = models.CharField(
@@ -71,7 +74,8 @@ class MiddleTask(models.Model):
     status = models.IntegerField(
         verbose_name="進捗率"   
     )
-
+    def __str__(self):
+        return self.title
 class BottomTask(models.Model):
     title = models.CharField(
         verbose_name="タイトル" ,
@@ -98,3 +102,5 @@ class BottomTask(models.Model):
         verbose_name="進捗率"   , 
         choices=STATUS
     )
+    def __str__(self):
+        return self.title

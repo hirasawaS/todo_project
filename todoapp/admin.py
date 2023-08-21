@@ -6,8 +6,8 @@ from accounts.models import CustomUser
 class CategoryAdmin(admin.ModelAdmin):
     
     class Meta:
-        list_display = ("id" , "title")
-        list_display_links = ("id" , "title")
+        list_display = ("id" , "category")
+        list_display_links = ("id" , "category")
         
 class TopTaskAdmin(admin.ModelAdmin):
     

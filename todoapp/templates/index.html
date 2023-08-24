@@ -42,7 +42,7 @@
         <th>説明</th>
     </tr>
     <tr>
-        {% for item in bottom_task_list %}
+        {% for item in page_obj %}
     <tr>
         <td>{{ item.title }}</td>
         <td>{{ item.parent_task.title}}</td>
@@ -53,7 +53,7 @@
     {% endfor %}
     </tbody>
 </table>
-
+{% include "pagination.html" %}
 
 
 

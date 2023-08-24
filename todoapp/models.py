@@ -41,6 +41,7 @@ class TopTask(models.Model):
         verbose_name="カテゴリ" , 
         on_delete=models.PROTECT
     )
+    
     def __str__(self):
         return self.title
 
@@ -76,6 +77,11 @@ class MiddleTask(models.Model):
     )
     def __str__(self):
         return self.title
+    
+    delivery = models.DateField(
+        verbose_name="納期" ,
+        null=True
+    )
 class BottomTask(models.Model):
     title = models.CharField(
         verbose_name="タイトル" ,

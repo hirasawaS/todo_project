@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}ToDo 詳細画面{% endblock  %}
+
+{% block contents %}
+<h2>
+    引き受けてるタスク
+</h2>
+<table class="design08">
+    <tr>
+        <th>タイトル</th>
+        <th>親タスク</th>
+        <th>カテゴリ</th>
+        <th>説明</th>
+        <th>納期</th>
+        <th>進捗</th>
+    </tr>
+    <tr>
+        <td>{{object.title}}</td>
+        <td>{{object.parent_task}}</td>
+        <td>{{object.category}}</td>
+        <td>{{object.description}}</td>
+        <td>{{object.delivery}}</td>
+        <td>{{object.status}}</td>
+    </tr>
+</table>
+<br>
+<br>
+<h3>紐づいているタスク</h3>
+<table class="design08">
+    <tr>
+        <th>タイトル</th>
+        <th>親タスク</th>
+        <th>カテゴリ</th>
+        <th>説明</th>
+        <th>進捗</th>
+    </tr>
+    <tr>
+        {% for item in related_task %}
+    <tr>
+        <td>{{ item.title }}</td>
+        <td>{{ item.parent_task.title}}</td>
+        <td>{{ item.category }}</td>
+        <td>{{ item.description }}</td>
+        <td>{{ item.status }} % </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock  %}

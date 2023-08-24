@@ -29,5 +29,10 @@ class IndexView(ListView):
 
     
 class TaskDetail(DetailView):
-    template_name="post.html"
+    template_name="detail.html"
     model= MiddleTask
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['related_task'] = BottomTask.objects.filter(parent_task__id=self.kwargs['pk'])
+        return context

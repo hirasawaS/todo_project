@@ -21,19 +21,24 @@
         <td>{{object.category}}</td>
         <td>{{object.description}}</td>
         <td>{{object.delivery}}</td>
-        <td>{{object.status}}</td>
+        <td>{{object.status}} % </td>
     </tr>
 </table>
 <br>
 <br>
 <h3>紐づいているタスク</h3>
+
+<br />
+<a class="btn-primary btn " href="{% url 'todoapp:create_bottom_task' %}">
+    新規作成
+</a>
 <table class="design08">
     <tr>
         <th>タイトル</th>
         <th>親タスク</th>
         <th>カテゴリ</th>
         <th>説明</th>
-        <th>進捗</th>
+        <th>完了フラグ</th>
     </tr>
     <tr>
         {% for item in related_task %}
@@ -42,7 +47,7 @@
         <td>{{ item.parent_task.title}}</td>
         <td>{{ item.category }}</td>
         <td>{{ item.description }}</td>
-        <td>{{ item.status }} % </td>
+        <td>{{ item.completed }} </td>
     </tr>
     {% endfor %}
 </table>

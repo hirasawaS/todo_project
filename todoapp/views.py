@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from django.views.generic import  ListView  , DetailView
+from django.views.generic import  ListView , DetailView , UpdateView , CreateView
 from .models import MiddleTask , BottomTask
 from django.core.paginator import Paginator
+from django.urls import reverse_lazy
+from .forms import CreateBottomTaskForm
 class IndexView(ListView):
     template_name="index.html"
     paginate_by=5
@@ -31,8 +33,28 @@ class IndexView(ListView):
 class TaskDetail(DetailView):
     template_name="detail.html"
     model= MiddleTask
+    form_class = CreateBottomTaskForm
+    
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['related_task'] = BottomTask.objects.filter(parent_task__id=self.kwargs['pk'])
         return context
+    
+
+class CreateBottomTaskView(CreateView):
+    model = BottomTask
+    template_name="create_task.html"
+    fields= ["title" , "description" ,"category" , "completed"]
+    Success_url = reverse_lazy("todoapp:index")
+    
+    def form_valid(self , form):
+        bottom_task = form.save(commit=False)
+        bottom_task.save()
+        
+        return super().form_valid(form)
+    
+    def form_invalid(self , form):
+        return super().form_invalid(form)
+    
+    

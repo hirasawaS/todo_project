@@ -104,9 +104,10 @@ class BottomTask(models.Model):
         on_delete=models.CASCADE
     )
     
-    status = models.IntegerField(
-        verbose_name="進捗率"   , 
-        choices=STATUS
+    completed = models.BooleanField(
+        verbose_name="完了フラグ" , 
+        default=False
     )
+
     def __str__(self):
         return self.title

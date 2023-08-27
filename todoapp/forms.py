@@ -2,10 +2,10 @@ from django.shortcuts import render
 from .models import BottomTask
 from django import forms
 
-class CreateBottomTaskForm(forms.Form):    
+class ButtomTaskForm(forms.ModelForm):    
     class Meta:
         model = BottomTask
-        fields= ["title" , "description" ,"category" , "completed"]
+        fields= ("title" ,"parent_task" , "description" ,"category")
 
     def __init__(self , *args ,**kwargs):
         super().__init__(*args , **kwargs)

@@ -3,7 +3,7 @@ from django.views.generic import  ListView , DetailView , CreateView , UpdateVie
 from .models import MiddleTask , BottomTask
 from django.core.paginator import Paginator
 from django.urls import reverse_lazy
-from .forms  import ButtomTaskForm
+from .forms  import ButtomTaskForm 
 from django.contrib import messages
 from django import template
 class IndexView(ListView):

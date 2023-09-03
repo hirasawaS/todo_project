@@ -1,3 +1,4 @@
+from typing import Any, Dict
 from django.shortcuts import render
 from django.views.generic import  ListView , DetailView , CreateView , UpdateView
 from .models import MiddleTask , BottomTask
@@ -48,7 +49,7 @@ class TaskDetail(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # 表示を制限
+        # 表示する文字数を制限
         pre_related_data = BottomTask.objects.filter(parent_task__id=self.kwargs['pk'])
         
         for i in range(len(pre_related_data)):
@@ -67,7 +68,11 @@ class CreateBottomTaskView(CreateView):
     
     def form_valid(self , form):
         bottom_task = form.save(commit=False)
+        # bottomタスク更新
         bottom_task.save()
+        # 親タスクのスコア更新
+        fix_middle_task_status(bottom_task.parent_task.id)
+        
         messages.success(self.request , "タスクを生成しました")
         return super().form_valid(form)
     
@@ -87,6 +92,9 @@ class BottomTaskUpdateView(UpdateView):
     def form_valid(self , form):
         bottom_task = form.save(commit=False)
         bottom_task.save()
+        # 親タスクのスコア更新
+        fix_middle_task_status(bottom_task.parent_task.id)
+        
         messages.success(self.request , "タスクを編集しました")
         return super().form_valid(form)
     
@@ -99,6 +107,16 @@ register = template.Library()
 @register.filter
 def replace_long_string(s: str) -> str:
     if len(s) > 100:
-        return s[0:50] + "・・・"
+        return s[0:20] + "・・・"
     else:
         return s
+    
+def fix_middle_task_status(parent_task_id):
+    # 親タスク進捗率計算
+        num_of_bottom_task = BottomTask.objects.filter(parent_task__id=parent_task_id).count()
+        socore_per_task = 100 / num_of_bottom_task
+        score_parent_task = socore_per_task * BottomTask.objects.filter(parent_task_id=parent_task_id , completed = True).count()
+        # 対応する親タスクを呼び出す
+        updateParentTask = MiddleTask.objects.get(pk=parent_task_id)
+        updateParentTask.status = score_parent_task
+        updateParentTask.save()
